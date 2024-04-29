@@ -45,7 +45,7 @@ class Book(models.Model):
         "ISBN",
         max_length=13,
         unique=True,
-        help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn>ISBN number</a>"',
+        help_text='13 character <a href="https://www.isbn-international.org/content/what-isbn/10>ISBN</a> number."',
     )
     genre = models.ManyToManyField(
         Genre, help_text="Select one or more genres for this book"
@@ -64,6 +64,15 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Returns the URL to access a detail record for this book."""
         return reverse("book-detail", args=[str(self.id)])
+
+    #! NOT COMPUTATIONALLY OPTIMAL (just por demonstration purposes)
+    def display_genre(self):
+        """
+        Create a string for the Genre. This is required to display genre in Admin.
+        """
+        return ", ".join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = "Genre"
 
 
 class BookInstance(models.Model):
