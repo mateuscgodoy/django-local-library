@@ -63,7 +63,7 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         """Returns the URL to access a detail record for this book."""
-        return reverse("book-detail", args=[str(self.id)])
+        return reverse("catalog:book-detail", args=[str(self.id)])
 
     #! NOT COMPUTATIONALLY OPTIMAL (just por demonstration purposes)
     def display_genre(self):
