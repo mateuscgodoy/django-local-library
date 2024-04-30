@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 from .models import Book, Author, BookInstance, Genre
 
@@ -25,3 +26,9 @@ def index(request):
     }
 
     return render(request, "catalog/index.html", context=context)
+
+
+class BookListView(generic.ListView):
+    model = Book
+    context_object_name = "book_list"
+    template_name = "catalog/books.html"
