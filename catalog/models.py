@@ -45,7 +45,7 @@ class Book(models.Model):
         "ISBN",
         max_length=13,
         unique=True,
-        help_text='13 character <a href="https://www.isbn-international.org/content/what-isbn/10>ISBN</a> number."',
+        help_text='13 character <a href="https://www.isbn-international.org/content/what-isbn/10">ISBN</a> number.',
     )
     genre = models.ManyToManyField(
         Genre, help_text="Select one or more genres for this book"
