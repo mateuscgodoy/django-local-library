@@ -1,0 +1,28 @@
+{%extends "catalog/layout.html"%}
+
+{%block content%}
+<h1>{{author.first_name}} {{author.last_name}}</h1>
+<p>Born in: <em>{{author.date_of_birth}}</em></p>
+{%if author.date_of_death%}
+<p>Died in: <em>{{author.date_of_death}}</em></p>
+{%endif%}
+{%if author.book_set%}
+<table class="table table-striped">
+  <thead>
+    <th scope="col">Title</th>
+    <th scope="col">Description</th>
+  </thead>
+  <tbody>
+    {%for book in author.book_set.all%}
+    <tr>
+      <td><a href="{{book.get_absolute_url}}">{{book.title}}</a></td>
+      <td>{{book.summary}}</td>
+    </tr>
+    {%endfor%}
+  </tbody>
+
+</table>
+{%else%}
+<p>This author has currently no title registered on our system.</p>
+{%endif%}
+{%endblock%}
