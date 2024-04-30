@@ -57,6 +57,9 @@ class Book(models.Model):
         null=True,
     )
 
+    class Meta:
+        ordering = ["title", "author"]
+
     def __str__(self):
         """String for representing the Model object."""
         return self.title
