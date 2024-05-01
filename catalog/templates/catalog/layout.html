@@ -26,8 +26,9 @@
           <li><a href="{%url 'catalog:authors'%}">All authors</a></li>
           {% if user.is_authenticated %}
           <li>User: {{user.get_username}}</li>
+          <li><a href="{% url 'catalog:my-borrowed' %}">My Borrowed</a></li>
           <li>
-            <form id="logout-form" method="post" action="{%url 'admin:logout'%}">
+            <form id="logout-form" method="post" action="{%url 'logout'%}">
               {% csrf_token %}
               <button type="submit" class="btn btn-link">Logout</button>
             </form>
