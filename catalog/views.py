@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
@@ -64,3 +64,17 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
             .filter(status__exact="o")
             .order_by("due_back")
         )
+
+
+class AllBorrowed(PermissionRequiredMixin, generic.ListView):
+    """Generic list base view to handle librarians access to all borrowed books instances."""
+
+    permission_required = "catalog.can_mark_returned"
+    model = BookInstance
+    template_name = "catalog/all_borrowed.html"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(
+            borrower__isnull=False, status__exact="o"
+        ).order_by("due_back")

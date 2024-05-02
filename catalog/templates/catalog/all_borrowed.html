@@ -1,0 +1,29 @@
+{% extends "catalog/layout.html" %}
+
+{%block content%}
+<h1>All borrowed books</h1>
+
+{% if bookinstance_list %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Borrower</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for inst in bookinstance_list %}
+    <tr>
+      <td>{{inst.book.title}}</td>
+      <td>{{inst.borrower.get_username}}</td>
+      <td class="{% if inst.is_overdue %}text-danger{% endif %}">{{inst.due_back}}</td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+{% else %}
+<p>There are no borrowed books.</p>
+{% endif %}
+{%endblock%}
