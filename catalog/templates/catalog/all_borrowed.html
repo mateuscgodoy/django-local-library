@@ -11,14 +11,18 @@
       <th>Title</th>
       <th>Borrower</th>
       <th>Due Date</th>
+      <th>Renew</th>
     </tr>
   </thead>
   <tbody>
     {%for inst in bookinstance_list %}
     <tr>
       <td>{{inst.book.title}}</td>
-      <td>{{inst.borrower.get_username}}</td>
+      <td><a href="{% url 'catalog:book-detail' inst.book.pk %}">{{ inst.book.title }}</a></td>
       <td class="{% if inst.is_overdue %}text-danger{% endif %}">{{inst.due_back}}</td>
+      {% if perms.catalog.can_mark_returned %}
+      <td><a href="{% url 'catalog:renew-book-librarian' inst.id%}">Renew</a></td>
+      {%endif%}
     </tr>
     {%endfor%}
   </tbody>
