@@ -1,5 +1,18 @@
 {%extends "catalog/layout.html"%}
 
+{%block sidebar%}
+
+{{block.super}}
+
+{%if perms.catalog.change_book %}
+<hr>
+<ul class="sidebar-nav">
+  <li><a href="{%url 'catalog:book-update' book.id%}">Update book</a></li>
+</ul>
+{%endif%}
+
+{%endblock%}
+
 {%block content%}
 <h1>Title: {{book.title}}</h1>
 
